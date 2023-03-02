@@ -1,0 +1,18 @@
+.App {
+  text-align: center;
+}
+
+.book-card {
+  margin-bottom: 20px;
+  min-height: 743px;
+}
+
+.card-img-top{
+  background: url(https://picsum.photos/id/870/200/300?grayscale&blur=2) no-repeat;
+  background-size: cover;
+  min-height: 629px;
+}
+
+.book-details-card {
+  width: 100%
+}
