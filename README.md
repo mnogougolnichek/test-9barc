@@ -1,3 +1,12 @@
+# 9barc test task
+
+Hi, dear reviewer! Here you can find some information
+about 6 CRA vulnerabilities warnings in case of questions:
+
+https://overreacted.io/npm-audit-broken-by-design/
+
+The rest of the README is standard.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.

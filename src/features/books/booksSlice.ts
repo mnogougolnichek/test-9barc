@@ -1,12 +1,21 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../../app/store';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
 import { fetchBooks } from './booksAPI';
+
+export type IBooks = {
+  isbn: string;
+  title: string;
+  author_name: string[];
+  publish_date?: string[];
+  subject?: string[];
+  key?: string;
+};
 
 export const searchBooks = createAsyncThunk(
   'books/searchBooks',
   async (query: string, thunkAPI) => {
     const response = await fetchBooks(
-      `https://openlibrary.org/search.json?q=${query}&page=1`
+      `https://openlibrary.org/search.json?q=${query}`
     );
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -15,7 +24,7 @@ export const searchBooks = createAsyncThunk(
 );
 
 export interface BooksState {
-  books: any;
+  books: IBooks[];
   status: 'idle' | 'loading' | 'failed';
 }
 
@@ -24,11 +33,13 @@ const initialState: BooksState = {
   status: 'idle',
 };
 
-const booksSlice = createSlice({
+export const booksSlice = createSlice({
   name: 'books',
   initialState,
   reducers: {
-    // standard reducer logic, with auto-generated action types per reducer
+    clearBooks: (state) => {
+      state.books = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -37,13 +48,15 @@ const booksSlice = createSlice({
       })
       .addCase(searchBooks.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.books = [...action.payload];
+        state.books = action.payload;
       })
       .addCase(searchBooks.rejected, (state) => {
         state.status = 'failed';
       });
   },
 });
+
+export const { clearBooks } = booksSlice.actions;
 
 export const selectBooks = (state: RootState) => state.books.books;
 
